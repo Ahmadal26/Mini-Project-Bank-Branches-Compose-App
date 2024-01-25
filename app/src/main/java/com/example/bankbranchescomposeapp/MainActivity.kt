@@ -1,14 +1,18 @@
 package com.example.bankbranchescomposeapp
 
-
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
@@ -27,8 +31,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import coil.compose.rememberAsyncImagePainter
 import com.example.bankbranchescomposeapp.Data.BranchData
@@ -37,11 +42,10 @@ import com.example.bankbranchescomposeapp.composable.BranchCard
 import com.example.bankbranchescomposeapp.composable.NavApp
 import com.example.bankbranchescomposeapp.ui.theme.BankBranchesComposeAppTheme
 
-
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // val branchesData = BranchesRepo.dummyBranchesList
+        val branchesData = BranchesRepo.dummyBranchesList
         setContent {
             BankBranchesComposeAppTheme {
 
@@ -49,22 +53,51 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    //   BranchesList(branchesData)
-//                   BranchesList(navController)
-//                   AppNavigation()
                     val branchData = BranchesRepo.dummyBranchesList
                     val navController = rememberNavController()
-                    NavApp(branchList = branchData, navController =navController )
 
+
+
+
+                    Column(
+                        modifier = Modifier
+                            .fillMaxSize()
+                    ) {
+                        // Upper part with top bar and KFH image
+                        TopBarWithImage()
+                        Spacer(modifier = Modifier.height(8.dp))
+                        NavApp(branchList = branchData, navController =navController )
+
+
+                    }
                 }
             }
         }
     }
 }
 
+    @Composable
+    fun TopBarWithImage() {
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(80.dp)
+        ) {
+            Image(
+                painter = painterResource(id = R.drawable.kfh),
+                contentDescription = null,
+                modifier = Modifier
+                    .fillMaxWidth()
+
+                    .height(80.dp),
+                contentScale = ContentScale.None
+            )
+        }
+    }
+
 @Composable
 fun BranchesList(
-    navController: NavController,
+    navController: NavHostController,
     branchData: List<BranchData>,
     modifier: Modifier = Modifier
 ) {
@@ -83,11 +116,20 @@ fun BranchesList(
             )
         }
     }
-    Image(
-        painter = rememberAsyncImagePainter("https://www.example.com/image.jpg"),
-        contentDescription = null,
-        modifier = Modifier.size(128.dp)
-    )
+
+}
+
+
+
+fun openGoogleMaps(location: String, activity: ComponentActivity) {
+    // Create a URI for the Google Maps location
+    val gmmIntentUri = Uri.parse("geo:0,0?q=$location")
+    // Create an Intent with the ACTION_VIEW action
+    val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
+    // Set the package for the intent to Google Maps
+    mapIntent.setPackage("com.google.android.apps.maps")
+    // Start the intent using the activity's launcher
+    activity.startActivity(mapIntent)
 }
 
 @Composable
@@ -116,10 +158,9 @@ fun FavoriteButton(
         )
     }
 }
-
 @Composable
 fun MyComponent(
-    imageUrl: String,
+    imageUrl:String,
     modifier: Modifier = Modifier,
 ) {
     Box(contentAlignment = Alignment.TopEnd) {
@@ -147,138 +188,3 @@ fun MyComponent(
 
 
 
-
-
-//@Preview(showBackground = true)
-//@Composable
-//fun GreetingPreview() {
-//    BankBranchesComposeAppTheme {
-//        BranchesList(branchData = BranchesRepo.dummyBranchesList)
-//    }
-//}
-
-
-//
-//package com.example.newcanaryproject
-//
-//import android.annotation.SuppressLint
-//import android.content.Context
-//import android.os.Bundle
-//
-//import android.widget.Toast
-//import androidx.activity.ComponentActivity
-//import androidx.activity.compose.setContent
-//import androidx.compose.foundation.ExperimentalFoundationApi
-//import androidx.compose.foundation.Image
-//import androidx.compose.foundation.layout.*
-////import androidx.compose.foundation.lazy.GridCells
-////import androidx.compose.foundation.lazy.LazyVerticalGrid
-//import androidx.compose.material.*
-//import androidx.compose.material3.ExperimentalMaterial3Api
-//import androidx.compose.material3.MaterialTheme
-//import androidx.compose.material3.Scaffold
-//import androidx.compose.material3.Surface
-//import androidx.compose.material3.Text
-//import androidx.compose.material3.TopAppBar
-//import androidx.compose.runtime.*
-//import androidx.compose.ui.Alignment
-//import androidx.compose.ui.Modifier
-//import androidx.compose.ui.graphics.Color
-//import androidx.compose.ui.text.style.TextAlign
-//import androidx.compose.ui.unit.dp
-//import coil.compose.rememberAsyncImagePainter
-//import com.example.bankbranchescomposeapp.ui.theme.BankBranchesComposeAppTheme
-//import java.lang.reflect.Type
-//
-//
-//class MainActivity : ComponentActivity() {
-//
-//    @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
-//    @OptIn(ExperimentalMaterial3Api::class)
-//    override fun onCreate(savedInstanceState: Bundle?) {
-//        super.onCreate(savedInstanceState)
-//        setContent {
-//            BankBranchesComposeAppTheme {
-//                // on below line we are specifying
-//                // background color for our application
-//                Surface(
-//                    modifier = Modifier.fillMaxSize(),
-//                    //color = MaterialTheme.colors.background
-//                ) {
-//                    // on below line we are specifying theme as scaffold.
-//                    Scaffold(
-//                        // in scaffold we are specifying top bar.
-//                        topBar = {
-//                            // inside top bar we are specifying background color.
-//                            TopAppBar(
-//                                // along with that we are specifying title for our top bar.
-//                                title = {
-//                                    // in the top bar we are specifying tile as a text
-//                                    Text(
-//                                        // on below line we are specifying
-//                                        // text to display in top app bar.
-//                                        text = "Image From URL",
-//
-//                                        // on below line we are specifying
-//                                        // modifier to fill max width.
-//                                        modifier = Modifier.fillMaxWidth(),
-//
-//                                        // on below line we are
-//                                        // specifying text alignment.
-//                                        textAlign = TextAlign.Center,
-//
-//                                        // on below line we are
-//                                        // specifying color for our text.
-//                                        color = Color.White
-//                                    )
-//                                }
-//                            )
-//                        }
-//                    ) {
-//                        imageFromURL()
-//                    }
-//                }
-//            }
-//        }
-//    }
-//}
-//
-//// on below line we are creating an
-//// image url function for our image view.
-//@Composable
-//fun imageFromURL() {
-//    // on below line we are creating a column,
-//    Column(
-//        // in this column we are adding modifier
-//        // to fill max size, mz height and max width
-//        modifier = Modifier
-//            .fillMaxSize()
-//            .fillMaxHeight()
-//            .fillMaxWidth()
-//            // on below line we are adding
-//            // padding from all sides.
-//            .padding(10.dp),
-//        // on below line we are adding vertical
-//        // and horizontal arrangement.
-//        verticalArrangement = Arrangement.Center,
-//        horizontalAlignment = Alignment.CenterHorizontally
-//    ) {
-//        // on below line we are adding image for our image view.
-//        Image(
-//            // on below line we are adding the image url
-//            // from which we will be loading our image.
-//            painter = rememberAsyncImagePainter("https://media.geeksforgeeks.org/wp-content/uploads/20210101144014/gfglogo.png"),
-//
-//            // on below line we are adding content
-//            // description for our image.
-//            contentDescription = "gfg image",
-//
-//            // on below line we are adding modifier for our
-//            // image as wrap content for height and width.
-//            modifier = Modifier
-//                .wrapContentSize()
-//                .wrapContentHeight()
-//                .wrapContentWidth()
-//        )
-//    }
-//}

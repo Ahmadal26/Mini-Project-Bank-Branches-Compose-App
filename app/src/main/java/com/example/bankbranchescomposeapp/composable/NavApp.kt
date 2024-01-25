@@ -3,11 +3,9 @@ package com.example.bankbranchescomposeapp.composable
 
 
 import androidx.compose.runtime.Composable
-import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
 import com.example.bankbranchescomposeapp.BranchesList
 import com.example.bankbranchescomposeapp.Data.BranchData
 
