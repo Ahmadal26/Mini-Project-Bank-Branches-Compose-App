@@ -2,36 +2,37 @@ package com.example.bankbranchescomposeapp.Repo
 
 import com.example.bankbranchescomposeapp.Data.BranchData
 import com.example.bankbranchescomposeapp.Data.BranchType
+import com.example.bankbranchescomposeapp.R
 
 class BranchesRepo {
     companion object {
         var dummyBranchesList = listOf(
             BranchData(
-                1, "Sharq",
-                "Sharq", "678944",
+                1, "Auto",
+                "Shuwaikh", "678944",
+                "9 AM - 7 PM",
+                "https://maps.app.goo.gl/oim8b69GzSodp2SQ9?g_st=ic", imageUri = R.drawable.kfhauto,
+                BranchType.ONLINEBANCH
+            ),
+
+            BranchData(
+                3, "AlKhaldiya Branch",
+                "Khaldiya", "253889",
                 "7 AM - 3 PM",
-                "gggh", imageUri = 8,
+                "gggh", imageUri = 9,
                 BranchType.ONSITEBRANCH
             ),
 
             BranchData(
-                3, "Khaldiya",
-                "Khaldiya", "253889",
-                "7 AM - 3 PM",
-                "gggh", imageUri = 9,
-                BranchType.ONLINEBANCH
-            ),
-
-            BranchData(
-                2, "Kaifan",
+                2, "Kaifan Branch",
                 "Kaifan", "365432",
                 "7 AM - 3 PM",
                 "gggh", imageUri = 6,
-                BranchType.ONLINEBANCH
+                BranchType.ONSITEBRANCH
             ),
 
             BranchData(
-                9, "Shamiya",
+                9, "AlShamiya Branch",
                 "Shamiya", "678944",
                 "7 AM - 3 PM",
                 "gggh", imageUri = 10,
