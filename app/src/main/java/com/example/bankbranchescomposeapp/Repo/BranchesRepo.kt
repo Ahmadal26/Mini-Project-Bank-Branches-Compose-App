@@ -8,7 +8,7 @@ class BranchesRepo {
     companion object {
         var dummyBranchesList = listOf(
             BranchData(
-                1, "Auto",
+                1, "KFH Auto",
                 "Shuwaikh", "678944",
                 "9 AM - 7 PM",
                 "https://maps.app.goo.gl/oim8b69GzSodp2SQ9?g_st=ic", imageUri = R.drawable.kfhauto,
@@ -19,7 +19,7 @@ class BranchesRepo {
                 3, "AlKhaldiya Branch",
                 "Khaldiya", "253889",
                 "7 AM - 3 PM",
-                "gggh", imageUri = 9,
+                "https://maps.app.goo.gl/oim8b69GzSodp2SQ9?g_st=ic", imageUri = R.drawable.kfh,
                 BranchType.ONSITEBRANCH
             ),
 
@@ -27,7 +27,7 @@ class BranchesRepo {
                 2, "Kaifan Branch",
                 "Kaifan", "365432",
                 "7 AM - 3 PM",
-                "gggh", imageUri = 6,
+                "https://maps.app.goo.gl/oim8b69GzSodp2SQ9?g_st=ic", imageUri = 6,
                 BranchType.ONSITEBRANCH
             ),
 
@@ -35,7 +35,7 @@ class BranchesRepo {
                 9, "AlShamiya Branch",
                 "Shamiya", "678944",
                 "7 AM - 3 PM",
-                "gggh", imageUri = 10,
+                "https://maps.app.goo.gl/oim8b69GzSodp2SQ9?g_st=ic", imageUri = 10,
                 BranchType.ONSITEBRANCH
             )
 

@@ -70,8 +70,7 @@ fun BranchCard(
 
 
             },
-        colors = CardDefaults.cardColors(containerColor =
-        MaterialTheme.colorScheme.primaryContainer
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.secondaryContainer
         )
     )
     {
@@ -86,18 +85,13 @@ fun BranchCard(
                 .padding(8.dp)
         ) {
 
-
             Column (modifier = Modifier.padding(3.dp)){
                 Text(text = "KFH - $name", fontWeight = FontWeight.Bold)
                 Text(text = hours, textAlign = TextAlign.Center)
             }
 
-            Column {
-                //Text(text = "+965 $phone")
-                //Text(text = location)
-            }
             Image(
-                painter = painterResource(id = R.drawable.kfhauto),
+                painter = painterResource(id = R.drawable.images),
                 contentDescription = null,
                 modifier = Modifier.size(150.dp)
             )
@@ -147,7 +141,7 @@ fun BranchDetailsPage(branch: BranchData, onBackClick: () -> Unit) {
                     contentAlignment = Alignment.TopEnd
                 ) {
                     Image(
-                        painter = painterResource(id = R.drawable.kfh),
+                        painter = painterResource(id = R.drawable.images),
                         contentDescription = null,
                         modifier = Modifier
                             .fillMaxWidth()

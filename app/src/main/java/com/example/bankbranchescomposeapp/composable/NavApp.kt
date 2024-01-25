@@ -8,6 +8,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.bankbranchescomposeapp.BranchesList
 import com.example.bankbranchescomposeapp.Data.BranchData
+import com.example.bankbranchescomposeapp.Data.BranchType
+import com.example.bankbranchescomposeapp.R
 
 
 @Composable
@@ -24,7 +26,16 @@ fun NavApp(branchList: List<BranchData>,navController: NavHostController) {
             val branchId = it.arguments?.getString("branchId")?.toInt()
             val selectedBranch = branchList.find { it.id == branchId }
             if (selectedBranch != null) {
-                BranchDetailsScreen(branchData = selectedBranch)
+
+                val newBranch = BranchData(
+                    1, "Auto",
+                    "Shuwaikh", "678944",
+                    "9 AM - 7 PM",
+                    "https://maps.app.goo.gl/oim8b69GzSodp2SQ9?g_st=ic", imageUri = R.drawable.kfhauto,
+                    BranchType.ONLINEBANCH
+                )
+
+                BranchDetailsScreen(selectedBranch)
             } else {
                 // Handle error or show a placeholder screen
             }
