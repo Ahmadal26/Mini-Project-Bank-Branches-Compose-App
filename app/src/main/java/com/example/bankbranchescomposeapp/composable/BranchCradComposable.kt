@@ -1,6 +1,6 @@
 package com.example.bankbranchescomposeapp.composable
 
-import android.graphics.drawable.Drawable
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -15,11 +15,12 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import com.example.bankbranchescomposeapp.Data.BranchData
 import com.example.bankbranchescomposeapp.Data.BranchType
 import com.example.bankbranchescomposeapp.ui.theme.BankBranchesComposeAppTheme
 import java.lang.reflect.Type
@@ -34,13 +35,19 @@ fun BranchCard(id: Int,
                location: String,
                imageUri: Int,
                branchType: Type,
+               navController: NavController,
                modifier: Modifier = Modifier
 ) {
     Card(
         modifier = modifier
             .fillMaxWidth()
             .height(100.dp)
-            .padding(5.dp),
+            .padding(5.dp).clickable {
+
+                navController.navigate("branchDetails/${id}")
+
+
+            },
         colors = CardDefaults.cardColors(containerColor =
         MaterialTheme.colorScheme.primaryContainer
         )
@@ -63,7 +70,7 @@ fun BranchCard(id: Int,
 
             Column {
                 Text(text = "+965 $phone")
-//                Text(text = address)
+
             }
         }
     }
@@ -72,44 +79,19 @@ fun BranchCard(id: Int,
 
 
 
-//    Card(colors = CardDefaults.cardColors(containerColor = Color.DarkGray, contentColor = Color.White),
-//        modifier = modifier
-//            .fillMaxWidth()
-//            .padding(8.dp)
-//    ) {
-//        Column {
-//            Row (modifier = Modifier
-//                .fillMaxWidth().padding(8.dp)
-//                , horizontalArrangement = Arrangement.SpaceBetween){
-//                Text(text = "Name: $name ")
-//                Text(text = "Address: $address")
-//            }
-//            Row (modifier = Modifier
-//                .fillMaxWidth().padding(8.dp), horizontalArrangement = Arrangement.SpaceBetween){
-//                Text(text = "Phone:   $phone ")
-//                Text(text = "Hours: $hours ")
-//            }
-//            Row (modifier = Modifier
-//                .fillMaxWidth().padding(8.dp), horizontalArrangement = Arrangement.SpaceBetween){
-//                Text(text = "location: $ $location")
-//                Text(text = "imageUri: $ $imageUri ")
-//            }
-//        }
-//    }
-//}
 
-@Preview(showBackground = true)
-@Composable
-fun StatementCardPreview() {
-    BankBranchesComposeAppTheme {
-        BranchCard(
-            1,"Sharq",
-            "Sharq","678944",
-            "7 AM - 3 PM",
-            "gggh", imageUri = 8,
-            BranchType.ONLINEBANCH
-        )
-    }}
+//@Preview(showBackground = true)
+//@Composable
+//fun StatementCardPreview() {
+//    BankBranchesComposeAppTheme {
+//        BranchCard(
+//            1,"Sharq",
+//            "Sharq","678944",
+//            "7 AM - 3 PM",
+//            "gggh", imageUri = 8,
+//            BranchType.ONLINEBANCH
+//        )
+//    }}
 
 
 

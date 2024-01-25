@@ -1,5 +1,6 @@
 package com.example.bankbranchescomposeapp
 
+
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -17,7 +18,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconToggleButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -27,26 +27,35 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import coil.compose.rememberAsyncImagePainter
 import com.example.bankbranchescomposeapp.Data.BranchData
 import com.example.bankbranchescomposeapp.Repo.BranchesRepo
 import com.example.bankbranchescomposeapp.composable.BranchCard
+import com.example.bankbranchescomposeapp.composable.NavApp
 import com.example.bankbranchescomposeapp.ui.theme.BankBranchesComposeAppTheme
+
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val branchesData = BranchesRepo.dummyBranchesList
+        // val branchesData = BranchesRepo.dummyBranchesList
         setContent {
             BankBranchesComposeAppTheme {
-                // A surface container using the 'background' color from the theme
+
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    BranchesList(branchesData)
+                    //   BranchesList(branchesData)
+//                   BranchesList(navController)
+//                   AppNavigation()
+                    val branchData = BranchesRepo.dummyBranchesList
+                    val navController = rememberNavController()
+                    NavApp(branchList = branchData, navController =navController )
+
                 }
             }
         }
@@ -54,27 +63,33 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun BranchesList(branchData: List<BranchData>, modifier: Modifier = Modifier) {
+fun BranchesList(
+    navController: NavController,
+    branchData: List<BranchData>,
+    modifier: Modifier = Modifier
+) {
     LazyColumn(modifier = Modifier) {
-        items(branchData){
+        items(branchData) {
             BranchCard(
-                id = 0,
+                id = it.id,
                 name = it.name,
                 address = it.address,
                 phone = it.phone,
                 hours = it.hours,
                 location = it.location,
                 imageUri = it.imageUri,
-                branchType = it.branchType
-        )
+                branchType = it.branchType,
+                navController = navController
+            )
         }
     }
-        Image(
-            painter = rememberAsyncImagePainter("https://www.example.com/image.jpg"),
-            contentDescription = null,
-            modifier = Modifier.size(128.dp)
-        )
+    Image(
+        painter = rememberAsyncImagePainter("https://www.example.com/image.jpg"),
+        contentDescription = null,
+        modifier = Modifier.size(128.dp)
+    )
 }
+
 @Composable
 fun FavoriteButton(
     modifier: Modifier = Modifier,
@@ -101,9 +116,10 @@ fun FavoriteButton(
         )
     }
 }
+
 @Composable
 fun MyComponent(
-    imageUrl:String,
+    imageUrl: String,
     modifier: Modifier = Modifier,
 ) {
     Box(contentAlignment = Alignment.TopEnd) {
@@ -123,19 +139,23 @@ fun MyComponent(
 
 
 
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    BankBranchesComposeAppTheme {
-        BranchesList(branchData = BranchesRepo.dummyBranchesList)
-    }
-}
 
 
 
 
 
 
+
+
+
+
+//@Preview(showBackground = true)
+//@Composable
+//fun GreetingPreview() {
+//    BankBranchesComposeAppTheme {
+//        BranchesList(branchData = BranchesRepo.dummyBranchesList)
+//    }
+//}
 
 
 //
